@@ -18,15 +18,170 @@
   <url>http://maven.apache.org</url>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jdk.version>1.8</jdk.version>
+        <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
+        <maven-resources-plugin.version>2.6</maven-resources-plugin.version>
+        <org.mybatis.generator.version>1.3.2</org.mybatis.generator.version>
+        <dubbo.version>2.10.1</dubbo.version>
+        <zookeeper.version>3.4.5</zookeeper.version>
+        <zkclient.version>0.1</zkclient.version>
+        <slf4j.version>1.7.21</slf4j.version>
+      <logback.version>1.1.7</logback.version>
+      <logback.ext.version>0.1.1</logback.ext.version>
+      <sysout-over-slf4j.version>1.0.2</sysout-over-slf4j.version>
+      <log4j.version>1.2.16</log4j.version>
+      <version.commons-lang>3.4</version.commons-lang>
+      <fastjson.version>1.2.13</fastjson.version>
+      <druid.version>1.0.14</druid.version>
+      <mysql-driver.version>5.1.35</mysql-driver.version>
+      <mybatis.version>3.3.0</mybatis.version>
+      <mybatis-spring.version>1.2.3</mybatis-spring.version>
+      <!--<version.elastic-job>1.1.1</version.elastic-job>-->
+      <!--<mq.version>1.2.9-SNAPSHOT</mq.version>-->
+      <!--<mq.consumer.version>1.2.9-SNAPSHOT</mq.consumer.version>-->
+      <junit.version>4.12</junit.version>
 
-  <dependencies>
+      <springframework.version>4.3.6.RELEASE</springframework.version>
+
+      <!--<spring-mongodb.version>1.9.2.RELEASE</spring-mongodb.version>-->
+      <!--<mongodb-driver.version>2.13.3</mongodb-driver.version>-->
+      <spring-data-common.version>1.12.2.RELEASE</spring-data-common.version>
+      <!--<elastic-job.version>2.0.3</elastic-job.version>-->
+    </properties>
+
+    <dependencyManagement>
+    <dependencies>
+
+      <dependency>
+          <groupId>com.alibaba</groupId>
+          <artifactId>dubbo</artifactId>
+          <version>${dubbo.version}</version>
+      </dependency>
+      <!-- spring 4.3.6 -->
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-beans</artifactId>
+          <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-core</artifactId>
+          <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context</artifactId>
+          <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-context-support</artifactId>
+          <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-aop</artifactId>
+          <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-jdbc</artifactId>
+          <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-tx</artifactId>
+          <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-web</artifactId>
+          <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-webmvc</artifactId>
+          <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-websocket</artifactId>
+          <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-jms</artifactId>
+          <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-messaging</artifactId>
+          <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-test</artifactId>
+          <version>${springframework.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.springframework</groupId>
+          <artifactId>spring-expression</artifactId>
+          <version>${springframework.version}</version>
+      </dependency>
+      <!-- srping end -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+
+      <!-- logger -->
+      <dependency>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-core</artifactId>
+          <version>${logback.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>ch.qos.logback</groupId>
+          <artifactId>logback-classic</artifactId>
+          <version>${logback.version}</version>
+      </dependency>
+      <dependency>
+          <groupId>org.logback-extensions</groupId>
+          <artifactId>logback-ext-spring</artifactId>
+          <version>${logback.ext.version}</version>
+      </dependency>
   </dependencies>
+    </dependencyManagement>
+
+    <!-- springboot使用1.5.4.RELEASE版本 -->
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>1.5.4.RELEASE</version>
+  </parent>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>${jdk.version}</source>
+          <target>${jdk.version}</target>
+          <encoding>UTF-8</encoding>
+        </configuration>
+
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <configuration>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

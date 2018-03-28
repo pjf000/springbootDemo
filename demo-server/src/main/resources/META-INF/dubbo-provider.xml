@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    					   http://www.springframework.org/schema/beans/spring-beans-2.5.xsd 	
+    					   http://www.springframework.org/schema/context 
+    					   http://www.springframework.org/schema/context/spring-context-3.2.xsd
+					   http://code.alibabatech.com/schema/dubbo 
+					   http://code.alibabatech.com/schema/dubbo/dubbo.xsd ">
+
+	<context:property-placeholder location="classpath*:/*.properties" ignore-resource-not-found="true" ignore-unresolvable="true" />
+
+	<context:component-scan base-package="com.test.springbootDemo" />
+
+	<!--应用名称，必须填写明确，清晰 -->
+	<dubbo:application name="${application.name}" owner="${application.owner}" organization="dubbox" logger="slf4j" />
+
+	<dubbo:monitor protocol="registry" />
+
+	<!-- 默认业务线注册中心 -->
+	<dubbo:registry id="registry" address="${zookeeper}" />
+
+	<dubbo:protocol name="fsof" serialization="fastjson" port="${application.protocol.port}" />
+	<dubbo:service interface="com.test.springbootDemo.service.TUserService"
+				   timeout="5000" ref="tUserService" protocol="fsof" group="default"
+				   version="1.0.0" registry="registry" />
+
+	<!-- 鼎盛平台配置相关服务 -->
+	<!--<dubbo:service interface="com.dshamc.pre.inlet.service.PrePlatformService"
+				   timeout="5000" ref="prePlatformService" protocol="fsof" group="default"
+				   version="1.0.0" registry="dsRegistry" />-->
+
+
+	<!-- 实例化spring上下文环境工具类,以便后来可直接用applicationContext -->
+    <!--<bean id="springContextUtil" class="com.fenqile.utils.spring.SpringContextUtil" scope="singleton" />-->
+</beans>
